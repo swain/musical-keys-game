@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import random
+import time
 from src import keys
 
 def main():
@@ -61,13 +62,21 @@ def main():
       "answer": [chords[i-1] for i in progression]
     })
 
+  input("Press enter to start the game!")
+
+  start_time = time.time()
+
   for progression in progressions:
     while True:
-      attempt = input("  ".join(list(map(str, progression["question"]))) + ' -> ')
+      attempt = input(args.key + ":   " + "  ".join(list(map(str, progression["question"]))) + ' -> ')
       if attempt.split(' ') == progression["answer"]:
         print('Correct!\n')
         break
       else:
         print('Incorrect, try again.\n')
+  
+  end_time = time.time()
+
+  print(f"Finished! You took {end_time - start_time:.2f} seconds.")
 
 main()
